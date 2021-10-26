@@ -12,6 +12,10 @@ body {
   text-align: center;
 }
 
+.hola {
+  background-color:red
+}
+
 #container1 {
   height: 250px;
   width: 370px;
