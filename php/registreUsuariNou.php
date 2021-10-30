@@ -12,7 +12,6 @@
 
 <body>
 
-
     <div id="wrapper">
         <header id="cap">
             <h1>Inici Projecte PHP Jorge</h1>
@@ -22,36 +21,49 @@
             <div class="container px-5 my-5">
                 <form id="contactForm" action="processaUsuariNou.php" method="POST">
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="nom" type="text" placeholder="Nom" data-sb-validations="required" name="nom" />
+                        <input class="form-control" id="nom" type="text" placeholder="Nom" name="nom" required />
                         <label for="nom">Nom</label>
-                        <div class="invalid-feedback" data-sb-feedback="nom:required">Nom is required.</div>
+
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="cognom" type="text" placeholder="Cognom" data-sb-validations="required" name="cognom" />
+                        <input class="form-control" id="cognom" type="text" placeholder="Cognom" name="cognom" required />
                         <label for="cognom">Cognom</label>
-                        <div class="invalid-feedback" data-sb-feedback="cognom:required">Cognom is required.</div>
+
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="poblacio" type="text" placeholder="Poblacio" data-sb-validations="required" name="poblacio" />
+                        <input class="form-control" id="poblacio" type="text" placeholder="Poblacio" name="poblacio" required />
                         <label for="poblacio">Poblacio</label>
-                        <div class="invalid-feedback" data-sb-feedback="poblacio:required">Poblacio is required.</div>
+
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="email" type="email" placeholder="Email " data-sb-validations="required,email" name="email" />
+                        <input class="form-control" id="email" type="email" placeholder="Email " name="email" required />
                         <label for="email">Email </label>
-                        <div class="invalid-feedback" data-sb-feedback="email:required">Email is required.</div>
-                        <div class="invalid-feedback" data-sb-feedback="email:email">Email Email is not valid.</div>
+
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="contrasenya" type="password"" placeholder=" Contrasenya" data-sb-validations="required" name="contrasenya" />
+                        <input class="form-control" id="contrasenya" type="password"" placeholder=" Contrasenya" name="contrasenya" minlength="6" required />
                         <label for="contrasenya">Contrasenya</label>
-                        <div class="invalid-feedback" data-sb-feedback="contrasenya:required">Contrasenya is required.</div>
+
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="confirmaCotrasena" type="password" placeholder="Confirma contraseña" data-sb-validations="required" name="contrasenya2" />
+                        <input class="form-control" id="confirmaCotrasena" type="password" placeholder="Confirma contraseña" name="contrasenya2" minlength="6" required />
                         <label for="confirmaCotrasena">Confirma contraseña</label>
-                        <div class="invalid-feedback" data-sb-feedback="confirmaCotrasena:required">Confirma contraseña is required.</div>
                     </div>
+                    <?php
+
+                    $parametre = "";
+                    if (isset($_GET['parametre'])) {
+                        $parametre = $_GET['parametre'];
+                    }
+
+
+                    if ($parametre == "error") {
+                        echo '    <span class="errorMsg" id="validation">Les contrasenyes han de coincidir</span>';
+                    }
+
+
+                    ?>
+
                     <div class="form-floating mb-3">
                         <select class="form-select" id="newField8" aria-label="New Field 8" name="tipus">
                             <option value="Alumnat">Alumnat</option>
@@ -74,7 +86,10 @@
     <div>
         <a href="../index.php" class="btn btn-danger" role="button">Volver atras</a>
     </div>
+    <?php
 
+
+    ?>
     </main>
     <footer id="peu">
         <p>

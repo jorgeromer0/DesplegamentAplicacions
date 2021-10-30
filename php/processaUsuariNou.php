@@ -1,5 +1,10 @@
 <?php
 
+if ($_POST['contrasenya'] != $_POST['contrasenya2']) {
+    header("Location: registreUsuariNou.php?parametre=error");
+
+}
+
 $nom = $_POST['nom'];
 $cognom = $_POST['cognom'];
 $poblacio =  $_POST['poblacio'];
@@ -39,12 +44,34 @@ $tipus = $_POST['tipus'];
             <p> Contrasenya 2 : <?= $contrasenya2 ?></p>
             <p> Tipus : <?= $tipus ?></p>
 
-
-
             <br>
+
+            <?php
+
+            $random = rand(1, 15);
+
+            echo $random;
+
+            echo "<div class='divap'>";
+            for ($i = 0; $i < $random; $i++) {
+
+                if ($tipus == "Alumnat") {
+                    echo " <img src='../img/alumno.jpg' class='imgap'> ";
+                } else {
+                    echo "<img src='../img/professor.jpg' class='imgap'>";
+                }
+
+            
+            }
+echo"</div>";
+            ?>
+
             <div>
                 <a href="../index.php" class="btn btn-danger" role="button">Volver atras</a>
             </div>
+
+
+
 
         </main>
         <footer id="peu">

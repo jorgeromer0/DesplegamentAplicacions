@@ -78,3 +78,18 @@ body {
   padding: 10px;
   background-color: white;
 }
+
+.divap{
+
+  border: 1px solid black;
+
+}
+
+.imgap{
+  width: 20%;
+  height: 20%;
+}
+
+#validation{
+  color: red;
+}

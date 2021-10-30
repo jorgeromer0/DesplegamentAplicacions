@@ -11,7 +11,6 @@
 </head>
 
 <body>
-<h1>HOLA</h1>
 
     <div id="wrapper">
         <header id="cap">
