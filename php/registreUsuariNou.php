@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link href="../css/estils.css" rel="stylesheet" type="text/css">
-</head>
+<?php include "../php/partials/cap.partial.php" ?>
 
 <body>
 
@@ -16,6 +6,39 @@
         <header id="cap">
             <h1>Inici Projecte PHP Jorge</h1>
         </header>
+        <nav class="navbar navbar-expand-sm bg-info navbar-dark justify-content-md-center justify-content-start">
+            <a class="navbar-brand d-md-none d-inline" href="">Brand</a>
+            <button class="navbar-toggler ml-1" type="button" data-toggle="collapse" data-target="#collapsingNavbar2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="nav-link" href="#_"><i class="fa fa-search mr-1"></i></a>
+            <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
+                <ul class="navbar-nav mx-auto text-md-center text-left">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../index.php">Inici</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./visitant.php">Visitant</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./loginUsuari.php">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./registreUsuariNou.php">Registra 't</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./admin.php">Administracio</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
+                    <li class="nav-item"><a class="nav-link" href=""><i class="fa fa-facebook mr-1"></i></a> </li>
+                    <li class="nav-item"><a class="nav-link" href=""><i class="fa fa-twitter"></i></a> </li>
+                </ul>
+            </div>
+        </nav>
+
+        <?php include "../php/partials/benvinguda.partial.php" ?>
+
         <main id="contingut">
             <h3>REGISTRE USUARI NOU </h3>
             <div class="container px-5 my-5">
@@ -40,8 +63,24 @@
                         <label for="email">Email </label>
 
                     </div>
+                    <?php
+
+                    $error = "";
+                    if (isset($_GET['error'])) {
+                        $error = $_GET['error'];
+                    }
+
+
+                    if ($error == "alumne") {
+                        echo '    <span class="errorMsg" id="validation">El alumnat ja existeix </span>';
+                    }
+                    if ($error == "professorat") {
+                        echo '    <span class="errorMsg" id="validation">El professorat ja existeix </span>';
+                    }
+
+                    ?>
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="contrasenya" type="password"" placeholder=" Contrasenya" name="contrasenya" minlength="6" required />
+                        <input class="form-control" id="contrasenya" type="password"" placeholder=" Contrasenya" name="contrasenya1" minlength="6" required />
                         <label for="contrasenya">Contrasenya</label>
 
                     </div>
@@ -81,7 +120,7 @@
             </div>
             </form>
     </div>
-    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
     <br>
     <div>
         <a href="../index.php" class="btn btn-danger" role="button">Volver atras</a>
@@ -91,15 +130,5 @@
 
     ?>
     </main>
-    <footer id="peu">
-        <p>
-            Jorge<br />
-            Desplegament d’aplicacions web<br />
-            Curs 2021/2022<br />
-
-        </p>
-    </footer>
-    </div>
-</body>
-
-</html>
+    
+    <?php include "../php/partials/peu.partial.php" ?>

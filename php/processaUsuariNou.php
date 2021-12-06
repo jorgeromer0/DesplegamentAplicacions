@@ -1,17 +1,20 @@
 <?php
 
-if ($_POST['contrasenya'] != $_POST['contrasenya2']) {
-    header("Location: registreUsuariNou.php?parametre=error");
 
-}
+
 
 $nom = $_POST['nom'];
 $cognom = $_POST['cognom'];
 $poblacio =  $_POST['poblacio'];
 $email = $_POST['email'];
-$contrasenya = $_POST['contrasenya'];
+$contrasenya = $_POST['contrasenya1'];
 $contrasenya2 = $_POST['contrasenya2'];
 $tipus = $_POST['tipus'];
+
+
+require("Usuarisdades.php");
+
+
 ?>
 
 <!DOCTYPE html>
@@ -60,10 +63,8 @@ $tipus = $_POST['tipus'];
                 } else {
                     echo "<img src='../img/professor.jpg' class='imgap'>";
                 }
-
-            
             }
-echo"</div>";
+            echo "</div>";
             ?>
 
             <div>
