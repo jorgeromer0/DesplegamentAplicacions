@@ -1,11 +1,12 @@
 <?php
 if (basename($_SERVER['PHP_SELF']) == 'index.php') {
-    $css = "css/estils.css";
+    $css = "./recursos/css/estils.css";
 } else {
     $url = $_SERVER['PHP_SELF'];
     $data = explode("php", $url);
     $index = $data[0];
-    $css = "../css/estils.css";
+    $css = "../recursos/css/estils.css";
+    
 }
 ?>
 
