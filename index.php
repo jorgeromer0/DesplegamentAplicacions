@@ -43,12 +43,12 @@
             <a href="./php/visitant.php" role="button">
                 <div id="container1">
 
-                    <img src="img/visitor.png" class="img-1" alt="...">
+                    <img src="./recursos/img/visitor.png" class="img-1" alt="...">
 
                 </div>
             </a>
             <div id="container2">
-                <img src="img/usuario.png" class="img-1" alt="...">
+                <img src="./recursos/img/usuario.png" class="img-1" alt="...">
                 <div>
 
                     <a href="./php/loginUsuari.php" class="btn btn-success" role="button">Accedeix</a>
@@ -57,7 +57,7 @@
             </div>
             <a href="./php/admin.php" role="button">
                 <div id="container3">
-                    <img src="img/admin.png" class="img-1" alt="...">
+                    <img src="./recursos/img/admin.png" class="img-1" alt="...">
                 </div>
             </a>
         </main>

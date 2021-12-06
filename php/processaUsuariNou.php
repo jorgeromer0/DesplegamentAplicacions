@@ -59,9 +59,9 @@ require("Usuarisdades.php");
             for ($i = 0; $i < $random; $i++) {
 
                 if ($tipus == "Alumnat") {
-                    echo " <img src='../img/alumno.jpg' class='imgap'> ";
+                    echo " <img src='../recursos/img/alumno.jpg' class='imgap'> ";
                 } else {
-                    echo "<img src='../img/professor.jpg' class='imgap'>";
+                    echo "<img src='../recursos/img/professor.jpg' class='imgap'>";
                 }
             }
             echo "</div>";
