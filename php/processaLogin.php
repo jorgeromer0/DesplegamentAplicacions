@@ -6,7 +6,7 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 $tipus = $_POST['tipus'];
 
-$servidor = "192.168.1.49";
+$servidor = "192.168.1.41";
 $usuari = "projectes_jorge";
 $contrasenyabs = "projectes_jorge";
 $base_dades = "projectes_jorge";
@@ -41,14 +41,35 @@ switch ($tipus) {
                 $_SESSION['loggedin'] = true;
                 $_SESSION['usuario'] = $email;
                 $_SESSION['rol'] = $tipus;
-                header('Location: usuariRegistrat.php');
+
+                $host = $_SERVER['HTTP_HOST'];
+                $html = 'usuariRegistrat.php';
+                $url = "http://$host/php/$html";
+                echo $url;
+                include  $_SERVER['DOCUMENT_ROOT'].'/php/escriuLogUsuari.php';
+
+
+                registraAccio("Login", $_SESSION['usuario'], $_SESSION['rol'],  date('d-m-Y'),   date('H:i:s'));
+                return header("Location:  $url");
             } else {
-                // print("CONTRASENYA NO VALIDA");
-                return header("Location: loginUsuari.php?parametre=errorc");
+                $host = $_SERVER['HTTP_HOST'];
+                $ruta = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+                $html = 'loginUsuari.php';
+                $url = "http://$host/php/$html";
+                echo $url;
+
+
+                return header("Location:  $url?parametre=errorc");
             }
         } else {
             echo "<h1> Correo no valido";
-            return header("Location: loginUsuari.php?parametre=erroremail");
+            $host = $_SERVER['HTTP_HOST'];
+            // $ruta = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+            $html = 'loginUsuari.php';
+            $url = "http://$host/php/$html";
+            echo $url;
+
+            return header("Location:  $url?parametre=erroremail");
         }
 
 
@@ -71,13 +92,38 @@ switch ($tipus) {
                 $_SESSION['loggedin'] = true;
                 $_SESSION['usuario'] = $email;
                 $_SESSION['rol'] = $tipus;
-                header('Location: usuariRegistrat.php');
+
+                $host = $_SERVER['HTTP_HOST'];
+                $ruta = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+                $html = 'usuariRegistrat.php';
+                $url = "http://$host/php/$html";
+                echo $url;
+                include  $_SERVER['DOCUMENT_ROOT'].'/php/escriuLogUsuari.php';
+
+
+
+                registraAccio("Login", $_SESSION['usuario'], $_SESSION['rol'],  date('d-m-Y'),   date('H:i:s'));
+
+                return    header("Location: $url");
             } else {
-                return header("Location: loginUsuari.php?parametre=errorc");
+                $host = $_SERVER['HTTP_HOST'];
+                $ruta = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+                $html = 'loginUsuari.php';
+                $url = "http://$host/php/$html";
+                echo $url;
+
+
+                return header("Location:  $url?parametre=errorc");
             }
         } else {
-            return header("Location: loginUsuari.php?parametre=erroremail");
 
+            $host = $_SERVER['HTTP_HOST'];
+            // $ruta = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+            $html = 'loginUsuari.php';
+            $url = "http://$host/php/$html";
+            echo $url;
+
+            return header("Location:  $url?parametre=erroremail");
         }
 }
 // $sql = mysqli_query($connexio, "SELECT * FROM $tipus WHERE email = '$email' AND contrasenya = '$password'");

@@ -1,5 +1,5 @@
 <?php
-$servidor = "192.168.1.49";
+$servidor = "192.168.1.41";
 $usuari = "projectes_jorge";
 $contrasenyabs = "projectes_jorge";
 $base_dades = "projectes_jorge";
@@ -26,7 +26,13 @@ if (mysqli_connect_errno()) {
 
 
 if ($contrasenya != $contrasenya2) {
-    return header("Location: registreUsuariNou.php?parametre=error");
+    $host = $_SERVER['HTTP_HOST'];
+    // $ruta = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+    $html = 'registreUsuariNou.php';
+    $url = "http://$host/wwwjorge/php/$html";
+    echo $url;
+
+    return header("Location: $url?parametre=error");
 }
 
 
@@ -46,10 +52,18 @@ if ($tipus == "Alumnat") {
     // $contador1 = mysqli_num_rows($resultat1);
 
     if (mysqli_num_rows($resultat1) > 0) {
-
-        header("Location: registreUsuariNou.php?error=alumne");
+        $host = $_SERVER['HTTP_HOST'];
+        // $ruta = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+        $html = 'registreUsuariNou.php';
+        $url = "http://$host/php/$html";
+        echo $url;
+        header("Location:  $url?error=alumne");
     } else {
         $sql = "INSERT INTO alumnat (nom,cognom,email,poblacio, contrasenya,rol,data) VALUES ('$nom','$cognom','$email' ,'$poblacio','$hashed_password','ALUMNAT',now())";
+        include  $_SERVER['DOCUMENT_ROOT'].'/php/escriuLogUsuari.php';
+
+
+        registraAccio("Nou Usuari", $email, "ALUMNAT",  date('d-m-Y'),   date('H:i:s'));
     }
 } else {
 
@@ -63,10 +77,18 @@ if ($tipus == "Alumnat") {
     // $contador1 = mysqli_num_rows($resultat1);
 
     if (mysqli_num_rows($resultat1) > 0) {
-
-        header("Location: registreUsuariNou.php?error=professorat");
+        $host = $_SERVER['HTTP_HOST'];
+        // $ruta = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+        $html = 'registreUsuariNou.php';
+        $url = "http://$host/php/$html";
+        echo $url;
+        header("Location: $url?error=professorat");
     } else {
         $sql = "INSERT INTO professorat (nom,cognom,email,poblacio,contrasenya,rol,data) VALUES ('$nom','$cognom','$email', '$poblacio','$hashed_password','PROFESSOR',now())";
+
+        include  $_SERVER['DOCUMENT_ROOT'].'php/escriuLogUsuari.php';
+
+        registraAccio("Nou Usuari", $email, "PROFESSORAT",  date('d-m-Y'),   date('H:i:s'));
     }
 }
 

@@ -27,7 +27,7 @@
                         <a class="nav-link" href="./registreUsuariNou.php">Registra 't</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./admin.php">Administracio</a>
+                        <a class="nav-link" href="http://<?php echo $_SERVER['SERVER_NAME'] ?>:5000/admin.php">Administracio</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">

@@ -2,12 +2,13 @@
 
 session_start();
 
-$servidor = "192.168.1.49";
+$servidor = "192.168.1.41";
 $usuari = "projectes_jorge";
 $contrasenyabs = "projectes_jorge";
 $base_dades = "projectes_jorge";
 $usuario =     $_SESSION['usuario'];
 $rol = $_SESSION['rol'];
+
 $loggin =     $_SESSION['loggedin'];
 
 $connexio = mysqli_connect($servidor, $usuari, $contrasenyabs, $base_dades);
@@ -15,12 +16,18 @@ $sql = "SELECT * FROM $rol WHERE  email ='$usuario'";
 $resultado = $connexio->query($sql);
 $row = $resultado->fetch_assoc();
 
+if ($rol = $_SESSION['rol'] == "alumnat") {
+    $id = $row['idalum'];
+} else {
+    $id = $row['idprof'];
+}
 
 
 ?>
 
-<?php require "../php/partials/cap.partial.php" ?>
 
+
+<?php require "../php/partials/cap.partial.php" ?>
 
 <body>
 
@@ -51,7 +58,7 @@ $row = $resultado->fetch_assoc();
                         <a class="nav-link" href="./registreUsuariNou.php">Registra 't</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./admin.php">Administracio</a>
+                        <a class="nav-link" href="http://<?php echo $_SERVER['SERVER_NAME'] ?>:5000/admin.php">Administracio</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
@@ -60,29 +67,37 @@ $row = $resultado->fetch_assoc();
                 </ul>
             </div>
         </nav>
-        <?php include "../php/partials/benvinguda.partial.php" ?>
 
-        <main id="contingut">
-            <h3>Usuari Registrat </h3>
+        <?php
+        include "../php/partials/benvinguda.partial.php";
 
-            <p>Nom: <?php echo $row['nom']; ?> </p>
-            <p>Cognom: <?php echo $row['cognom']; ?></p>
-            <p>Poblacio: <?php echo $row['poblacio']; ?></p>
-            <p> Email: <?php echo $row['email']; ?></p>
-            <p> Contrasenya 1 : <?php echo $row['contrasenya']; ?></p>
-            <p> Rol : <?php echo $row['rol']; ?></p>
-            <p> Data : <?php echo $row['data']; ?></p>
+        if (isset($_GET['parametre']) && $_GET['parametre'] == "mod") {
+            print ' <div class="alert alert-success mx-auto text-md-center text-left" role="alert"> Les teues dades s\'han canviat correctament.    </div>';
+        }
 
-            <br>
+        if (isset($_GET['parametre']) && $_GET['parametre'] == "exitopass") {
+            print ' <div class="alert alert-success mx-auto text-md-center text-left" role="alert"> La contrasenya s\'ha canviat correctament.    </div>';
+        }
+
+        if (isset($_GET['parametre']) && $_GET['parametre'] == "modpass") {
+            return include "../php/partials/canviContrasenya.partial.php";
+        }
+
+        if (isset($_GET["url"]) && $_GET["url"] == "modifica") {
+            include "../php/partials/modificaDadesUsuari.partial.php";
+        } else {
+            include "../php/partials/dadesUsuari.partial.php";
+        }
 
 
 
-            <div>
-                <a href="../index.php" class="btn btn-danger" role="button">Volver atras</a>
-            </div>
+        if (isset($_GET['visualitza']) && $_GET['visualitza'] == "true") {
+            // include "../php/partials/dadesUsuari.partial.php";
+            include "../php/partials/visualitzaLog.partial.php";
+
+        }
 
 
 
-
-        </main>
+        ?>
         <?php include "../php/partials/peu.partial.php" ?>

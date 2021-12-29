@@ -15,7 +15,7 @@ if (!isset($_SESSION)) {
 }
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-    print ' <div class="alert alert-primary" role="alert"> Hola ' . $_SESSION['usuario'] . ', estas registrat com a ' .     $_SESSION['rol'] . ' <a href=' . $url . '>Desconnecta\'t </a>    </div>';
+    print ' <div class="alert alert-primary mx-auto text-md-center text-left" role="alert"> Hola ' . $_SESSION['usuario'] . ', estas registrat com a ' .     $_SESSION['rol'] . ' <a href=' . $url . '>Desconnecta\'t </a>    </div>';
 }
 
 

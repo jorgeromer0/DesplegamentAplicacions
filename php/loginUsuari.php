@@ -6,7 +6,13 @@
 
 
     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-        return header("Location: usuariRegistrat.php");
+        $host = $_SERVER['HTTP_HOST'];
+        // $ruta = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+        $html = 'usuariRegistrat.php';
+        $url = "http://$host/php/$html";
+        echo $url;
+
+        return header("Location: $url");
     }
 
 
@@ -37,7 +43,7 @@
                         <a class="nav-link" href="./registreUsuariNou.php">Registra 't</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./admin.php">Administracio</a>
+                        <a class="nav-link" href="http://<?php echo $_SERVER['SERVER_NAME'] ?>:5000/admin.php">Administracio</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
