@@ -1,7 +1,16 @@
 <?php
 
+ini_set('display_errors', 1);
+
+ini_set('display_startup_errors', 1);
+
+error_reporting(E_ALL);
+
+?>
+<?php
+
 session_start();
-$servidor = "192.168.1.52";
+$servidor = "localhost";
 $usuari = "projectes_jorge";
 $contrasenyabs = "projectes_jorge";
 $base_dades = "projectes_jorge";
@@ -32,6 +41,9 @@ $email = $_POST['email'];
 
 
 $fileSize = $_FILES['the_file']['size'];
+
+// echo $fileSize;
+// die();
 if ($fileSize > 300000) {
     return header("Location: usuariRegistrat.php?url=modifica&parametre=errorimg");
 } else {
@@ -41,9 +53,19 @@ if ($fileSize > 300000) {
         $archivo = $email . "." . $ext;
         $rutaTemporal = $_FILES['the_file']['tmp_name'];
         $rutaEnServidor = $_SERVER['DOCUMENT_ROOT'] . "/recursos/img/imatgesperfil/alumnat/";
-
+        
+        
+        // var_dump($archivo);
+        // var_dump($rutaTemporal);
+        // var_dump($rutaEnServidor);
+        
+    
         $rutaDestino = $rutaEnServidor  . $archivo;
-        move_uploaded_file($rutaTemporal, $rutaDestino);
+// var_dump($rutaDestino);
+    $ver =    move_uploaded_file($rutaTemporal, $rutaDestino);
+
+        // var_dump($ver);
+        // die();
         $viejo = $_SERVER['DOCUMENT_ROOT'] . "/recursos/img/imatgesperfil/alumnat/" . $imagen;
         unlink($viejo);
         $_SESSION['img'] = $archivo;
@@ -56,7 +78,7 @@ if ($fileSize > 300000) {
 
         $rutaDestino = $rutaEnServidor  . $archivo;
         move_uploaded_file($rutaTemporal, $rutaDestino);
-        $viejo = $_SERVER['DOCUMENT_ROOT'] . "/recursos/img/imatgesperfil/professorat/" . $imagen;
+        $viejo = $_SERVER['DOCUMENT_ROOT'] . "recursos/img/imatgesperfil/professorat/" . $imagen;
         unlink($viejo);
         $_SESSION['img'] = $archivo;
     }

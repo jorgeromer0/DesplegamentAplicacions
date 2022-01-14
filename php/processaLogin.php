@@ -6,7 +6,7 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 $tipus = $_POST['tipus'];
 
-$servidor = "192.168.1.52";
+$servidor = "localhost";
 $usuari = "projectes_jorge";
 $contrasenyabs = "projectes_jorge";
 $base_dades = "projectes_jorge";

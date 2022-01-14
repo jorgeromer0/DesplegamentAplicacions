@@ -1,12 +1,13 @@
 <?php
-$servidor = "192.168.1.52";
+
+$servidor = "localhost";
 $usuari = "projectes_jorge";
 $contrasenyabs = "projectes_jorge";
 $base_dades = "projectes_jorge";
 
 include("../entity/dadesFormulari.php");
-$dades = new DadesFormulari($nom , $cognom, $poblacio ,$email,$contrasenya,$tipus);
-$_SESSION['dadesformulari']= serialize($dades);
+$dades = new DadesFormulari($nom, $cognom, $poblacio, $email, $contrasenya, $tipus);
+$_SESSION['dadesformulari'] = serialize($dades);
 $dadessesio =  unserialize($_SESSION['dadesformulari']);
 
 $_SESSION['nomguarda'] = $dadessesio->getNom();
@@ -50,8 +51,8 @@ if ($contrasenya != $contrasenya2) {
     // $html = 'registreUsuariNou.php';
     // $url = "http://$host/wwwjorge/php/$html";
     // echo $url;
-
-    return header("Location: registreUsuariNou.php?parametre=error");
+    echo "hola";
+    return header("Location: ./registreUsuariNou.php?parametre=error");
 }
 
 
@@ -64,9 +65,11 @@ $fileSize = $_FILES['the_file']['size'];
 
 // echo "Tamaño imagen: $fileSize";
 if (!file_exists($_FILES['the_file']['tmp_name'])) {
+    echo "foto";
     $archivo = "imatgedefecte.png";
 } else     if ($fileSize > 300000) {
-    return header("Location: registreUsuariNou.php?parametre=errorimg");
+    echo "hola";
+    return header("Location: ./registreUsuariNou.php?parametre=errorimg");
 } else {
     if ($tipus == "Alumnat") {
         $path = $_FILES['the_file']['name'];
@@ -77,7 +80,6 @@ if (!file_exists($_FILES['the_file']['tmp_name'])) {
 
         $rutaDestino = $rutaEnServidor  . $archivo;
         move_uploaded_file($rutaTemporal, $rutaDestino);
-    
     } else {
         $path = $_FILES['the_file']['name'];
         $ext = pathinfo($path, PATHINFO_EXTENSION);
@@ -98,7 +100,7 @@ $hashed_password = password_hash($contrasenya, PASSWORD_DEFAULT);
 
 if ($tipus == "Alumnat") {
 
-
+    echo "alumnat";
 
     $buscarCorreu   = "SELECT * from alumnat WHERE email='$email'";
 
@@ -114,8 +116,8 @@ if ($tipus == "Alumnat") {
         // $url = "http://$host/php/$html";
         // echo $url;
         // header("Location:  $url?error=alumne");
-
-        header("Location: registreUsuariNou.php?error=alumne");
+        echo "hola";
+        header("Location: ./registreUsuariNou.php?error=alumne");
     } else {
         $sql = "INSERT INTO alumnat (nom,cognom,email,poblacio, contrasenya,rol,data,imatgeperfil) VALUES ('$nom','$cognom','$email' ,'$poblacio','$hashed_password','ALUMNAT',now(),'$archivo')";
         include  $_SERVER['DOCUMENT_ROOT'] . '/php/escriuLogUsuari.php';
@@ -125,7 +127,7 @@ if ($tipus == "Alumnat") {
     }
 } else {
 
-
+    echo "professorat";
 
     $buscarCorreu   = "SELECT * from professorat WHERE email='$email'";
 
@@ -140,11 +142,12 @@ if ($tipus == "Alumnat") {
         // $html = 'registreUsuariNou.php';
         // $url = "http://$host/php/$html";
         // echo $url;
-        header("Location: registreUsuariNou.php?error=professorat");
+        echo "hooooola";
+        header("Location: ./registreUsuariNou.php?error=professorat");
     } else {
         $sql = "INSERT INTO professorat (nom,cognom,email,poblacio,contrasenya,rol,data,imatgeperfil) VALUES ('$nom','$cognom','$email', '$poblacio','$hashed_password','PROFESSOR',now(),'$archivo')";
 
-        include  $_SERVER['DOCUMENT_ROOT'] . 'php/escriuLogUsuari.php';
+        include_once  $_SERVER['DOCUMENT_ROOT'] . '/php/escriuLogUsuari.php';
 
         registraAccio("Nou Usuari", $email, "PROFESSORAT",  date('d-m-Y'),   date('H:i:s'));
     }
