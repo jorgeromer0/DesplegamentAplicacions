@@ -1,5 +1,14 @@
 <?php
 
+ini_set('display_errors', 1);
+
+ini_set('display_startup_errors', 1);
+
+error_reporting(E_ALL);
+
+?>
+<?php
+
 session_start();
 
 $servidor = "localhost";
@@ -8,8 +17,11 @@ $contrasenyabs = "projectes_jorge";
 $base_dades = "projectes_jorge";
 $usuario =     $_SESSION['usuario'];
 $rol = $_SESSION['rol'];
-$imagen = filemtime($_SESSION['img']);
+$imagen = $_SESSION['img'];
 $loggin =     $_SESSION['loggedin'];
+
+
+// echo $rol;
 
 $connexio = mysqli_connect($servidor, $usuari, $contrasenyabs, $base_dades);
 $sql = "SELECT * FROM $rol WHERE  email ='$usuario'";
@@ -94,7 +106,19 @@ if ($rol = $_SESSION['rol'] == "alumnat") {
         if (isset($_GET['visualitza']) && $_GET['visualitza'] == "true") {
             // include "../php/partials/dadesUsuari.partial.php";
             include "../php/partials/visualitzaLog.partial.php";
+        }
 
+
+        if (isset($_GET['formulario']) && $_GET['formulario'] == "true") {
+            // include "../php/partials/dadesUsuari.partial.php";
+
+
+            if ($rol == "alumnat") {
+                include "../php/partials/projecteAlumnatPartial.php";
+            }else{
+                include "../php/partials/projecteProfessoratPartial.php";
+
+            }
         }
 
 
