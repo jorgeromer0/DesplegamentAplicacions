@@ -42,7 +42,7 @@
         <?php include "../php/partials/benvinguda.partial.php" ?>
 
         <main id="contingut">
-        <?php require "../php/partials/cerca.partial.php" ?>
+            <?php require "../php/partials/cerca.partial.php" ?>
             <?php
             // session_start();
 
@@ -60,36 +60,56 @@
 
             $connexio = mysqli_connect($servidor, $usuari, $contrasenyabs, $base_dades);
 
-$titol = $_POST["title"];
-$ciclo = $_POST["ciclo"];
-$curs = $_POST["curs"];
-$descripcio = $_POST["descripcio"];
-$nalumnat = $_POST["nalumnat"];
-$nprofesorat = $_POST["nprofesorat"];
-// echo "TITOL ".$titol;
-// echo "CICLO ".$ciclo;
-// echo "CURS ".$curs;
-// echo "N ALUM ".$nalumnat;
-// echo "N PROF ".$nprofesorat;
 
-            ?>
-            <?php
 
-            $query = "
+
+
+
+
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+                $titol = $_POST["title"];
+
+                $ciclo = $_POST["ciclo"];
+                $curs = $_POST["curs"];
+                $descripcio = $_POST["descripcio"];
+                $nalumnat = $_POST["nalumnat"];
+                $nprofesorat = $_POST["nprofesorat"];
+                // echo "TITOL ".$titol;
+                // echo "CICLO ".$ciclo;
+                // echo "CURS ".$curs;
+                // echo "N ALUM ".$nalumnat;
+                // echo "N PROF ".$nprofesorat;
+
+                $query = "
+    SELECT rp.idproj, pj.titol, pj.cicle, c.curs, pj.descripcio,pj.paraulesclau, a.nom as nomalumne, a.cognom as cognomsalumne, p.nom, p.cognom from relacioprojecte rp      
+    INNER JOIN professorat p ON p.idprof = rp.idprof     
+    INNER JOIN alumnat a ON a.idalum = rp.idalum    
+     INNER JOIN curs c ON c.idcurs = rp.idcrus     
+    INNER JOIN projecte pj ON pj.idproj = rp.idproj     
+    AND titol LIKE '%" . $titol . "%'
+    AND cicle LIKE '%" . $ciclo . "%'
+    AND idcurs LIKE '%" . $curs . "%'
+    AND descripcio LIKE '%" . $descripcio . "%'
+    AND a.nom LIKE '%" . $nalumnat . "%'
+    AND p.nom LIKE '%" . $nprofesorat . "%'
+    
+    
+    ";
+            } else {
+                echo "";
+
+                $query = "
 SELECT rp.idproj, pj.titol, pj.cicle, c.curs, pj.descripcio,pj.paraulesclau, a.nom as nomalumne, a.cognom as cognomsalumne, p.nom, p.cognom from relacioprojecte rp      
 INNER JOIN professorat p ON p.idprof = rp.idprof     
 INNER JOIN alumnat a ON a.idalum = rp.idalum    
  INNER JOIN curs c ON c.idcurs = rp.idcrus     
 INNER JOIN projecte pj ON pj.idproj = rp.idproj     
-AND titol LIKE '%".$titol."%'
-AND cicle LIKE '%".$ciclo."%'
-AND idcurs LIKE '%".$curs."%'
-AND descripcio LIKE '%".$descripcio."%'
-AND a.nom LIKE '%".$nalumnat."%'
-AND p.nom LIKE '%".$nprofesorat."%'
 
 
 ";
+            }
 
 
 
@@ -114,7 +134,7 @@ AND p.nom LIKE '%".$nprofesorat."%'
            <tbody>';
 
 
-    
+
                 while ($row = mysqli_fetch_object($resultado)) {
                     echo "<tr>";
                     echo "<td>" . $row->idproj . " </td>";
@@ -128,22 +148,19 @@ AND p.nom LIKE '%".$nprofesorat."%'
                     echo "<td>" . $row->nom . '' . $row->cognom . "</td>";
                     $porciones1 = explode("/", $row->curs);
                     // $porciones2 = explode(" ", );
-    
-                    $memoria_projecte = "". $row->idproj."_".$row->cicle."_".$porciones1[0]."".$porciones1[1]."_".$row->nomalumne."_".$row->cognomsalumne.".pdf";
-                    $ruta = "../recursos/projectes/".$row->cicle."/".$porciones1[0]."/".$porciones1[1]."/".$memoria_projecte;
+
+                    $memoria_projecte = "" . $row->idproj . "_" . $row->cicle . "_" . $porciones1[0] . "" . $porciones1[1] . "_" . $row->nomalumne . "_" . $row->cognomsalumne . ".pdf";
+                    $ruta = "../recursos/projectes/" . $row->cicle . "/" . $porciones1[0] . "/" . $porciones1[1] . "/" . $memoria_projecte;
                     echo "<td><a href='$ruta'>Fitxer</a></td>";
 
                     echo "</tr>";
-                
                 }
                 echo "</table>";
-            }else {
+            } else {
 
                 echo "<p>No hi ha projecters per aquests criteris</p>\n";
                 echo "<img src='../recursos/img/conejo.png'  width='100px' height='100px'>";
-
-                
-                }
+            }
 
 
             ?>

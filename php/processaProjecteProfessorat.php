@@ -170,4 +170,5 @@ if (!file_exists($rutaEnServidor)) {
     move_uploaded_file($rutaTemporal, $rutaDestino);
 }
 
+
  return header("Location: usuariRegistrat.php");

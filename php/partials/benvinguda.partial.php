@@ -14,6 +14,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
+// echo $url;
 
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
@@ -34,6 +35,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         echo "<img src='../recursos/img/imatgesperfil/$imagen'  width='40'>";
     }
 
+// echo $url;
     echo " Hola " . $_SESSION['usuario'] . ', estas registrat com a ' .     $_SESSION['rol'] . ' <a href=' . $url . '>Desconnecta\'t </a>    </div>';
 }
 
